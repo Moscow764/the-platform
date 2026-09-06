@@ -16,3 +16,10 @@ if (process.env.NODE_ENV !== 'production') {
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 }
+// إذا كانت ملفات الـ HTML والـ CSS في مجلد المشروع الرئيسي مباشرة:
+app.use(express.static(__dirname));
+
+// أو إذا كان لديك مسار محدد للصفحة الرئيسية (مثلاً index.html):
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
