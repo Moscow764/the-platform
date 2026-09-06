@@ -342,3 +342,4 @@ app.listen(PORT, () => {
   console.log(`✅ منصة أحمد ثابت شغالة على http://78.154.103.10:${PORT}`);
   console.log(`🔑 لوحة التحكم: http://78.154.103.10:${PORT}/key.html  (مفتاح الأدمن: ${ADMIN_KEY})`);
 });
+module.exports = app;
