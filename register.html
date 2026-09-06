@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>إنشاء حساب | أحمد ثابت</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+        rel="stylesheet"
+    />
+
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="auth-page">
+    <main class="auth-shell">
+        <!-- Brand / Header -->
+        <a class="brand auth-brand" href="index.html">
+            <img class="brand-mark" src="assets/logo.png" alt="شعار مستر أحمد ثابت" width="39" height="39" />
+            <span>
+                <strong>أحمد ثابت</strong>
+                <small>ENGLISH STUDIO</small>
+            </span>
+        </a>
+
+        <!-- Authentication Grid -->
+        <div class="auth-grid">
+            <!-- Left: Intro Section (Register specific) -->
+            <div class="auth-intro register-intro">
+                <div class="auth-intro-top">
+                    <img class="auth-mark-image" src="assets/Fullmark.png" alt="شعار مستر أحمد ثابت" />
+                    <div class="auth-intro-copy">
+                        <span class="section-kicker">خطوتك الأولى</span>
+                        <h1>
+                            ابدأ رحلة<br />
+                            <em>التفوق.</em>
+                        </h1>
+                    </div>
+                </div>
+                <p>
+                    اعمل حسابك في أقل من دقيقة، واختار المسار المناسب لمستواك وصفك الدراسي.
+                </p>
+                <div class="register-perks">
+                    <span>✓ محتوى منظم</span>
+                    <span>✓ متابعة أسبوعية</span>
+                    <span>✓ دعم مستمر</span>
+                </div>
+            </div>
+
+            <!-- Right: Registration Card -->
+            <section class="auth-card">
+                <div class="auth-card-head">
+                    <span class="auth-icon">+</span>
+                    <span>حساب جديد</span>
+                </div>
+
+                <h2>إنشاء حساب</h2>
+                <p>بيانات بسيطة عشان نجهزلك أفضل تجربة.</p>
+
+                <!-- Registration Form -->
+                <form data-register-form novalidate>
+                    <!-- Two columns: First Name + Last Name -->
+                    <div class="form-columns">
+                        <label>
+                            الاسم الأول
+                            <input type="text" name="firstName" placeholder="محمد" required />
+                        </label>
+                        <label>
+                            الاسم الأخير
+                            <input type="text" name="lastName" placeholder="أحمد" required />
+                        </label>
+                    </div>
+
+                    <!-- Phone -->
+                    <label>
+                        رقم الهاتف
+                        <input type="tel" name="phone" id="regPhone" placeholder="01xxxxxxxxx" inputmode="numeric" maxlength="11" required />
+                        <small class="field-hint" data-hint-for="regPhone">رقم مصري صحيح: 01 ثم 0 أو 1 أو 2 أو 5 ثم 8 أرقام</small>
+                    </label>
+
+                    <!-- Grade / Level -->
+                    <label>
+                        الصف الدراسي
+                        <select name="grade" required>
+                            <option value="">اختار صفك</option>
+                            <option>الصف الأول الثانوي</option>
+                            <option>الصف الثاني الثانوي</option>
+                            <option>الصف الثالث الثانوي</option>
+                            <option>تأسيس من الصفر</option>
+                        </select>
+                    </label>
+
+                    <!-- Password with toggle -->
+                    <label>
+                        كلمة السر
+                        <div class="password-field">
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder="8 أحرف على الأقل"
+                                minlength="8"
+                                required
+                            />
+                            <button
+                                type="button"
+                                class="toggle-password"
+                                aria-label="إظهار كلمة السر"
+                            >
+                                ◉
+                            </button>
+                        </div>
+                    </label>
+
+                    <!-- Terms & Conditions -->
+                    <label class="check-label terms">
+                        <input type="checkbox" required />
+                        أوافق على شروط استخدام المنصة
+                    </label>
+
+                    <!-- Submit Button -->
+                    <button class="button button-primary full-button" type="submit">
+                        أنشئ حسابي <span>←</span>
+                    </button>
+
+                    <!-- Status Message -->
+                    <div class="form-message" role="status"></div>
+                </form>
+
+                <p class="post-register-note">بعد قبول طلبك من المستر هيوصلك كود دخول من 6 أرقام تستخدمه في صفحة تسجيل الدخول.</p>
+
+                <!-- Switch to Login -->
+                <p class="switch-auth">
+                    لديك حساب بالفعل؟
+                    <a href="login.html">تسجيل الدخول</a>
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تسجيل الدخول | أحمد ثابت</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+        rel="stylesheet"
+    />
+
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="auth-page">
+    <main class="auth-shell">
+        <!-- Brand / Header -->
+        <a class="brand auth-brand" href="index.html">
+            <img class="brand-mark" src="assets/logo.png" alt="شعار مستر أحمد ثابت" width="39" height="39" />
+            <span>
+                <strong>أحمد ثابت</strong>
+                <small>ENGLISH STUDIO</small>
+            </span>
+        </a>
+
+        <!-- Authentication Grid -->
+        <div class="auth-grid">
+            <!-- Left: Intro Section -->
+            <div class="auth-intro">
+                <div class="auth-intro-top">
+                    <img class="auth-mark-image" src="assets/Fullmark.png" alt="شعار مستر أحمد ثابت" />
+                    <div class="auth-intro-copy">
+                        <span class="section-kicker">أهلاً بعودتك</span>
+                        <h1>
+                            كمل اللي<br />
+                            <em>بدأته.</em>
+                        </h1>
+                    </div>
+                </div>
+                <p>
+                    الإنجاز بيحب الاستمرارية. ادخل لحسابك وشوف حصتك الجاية وتقدمك.
+                </p>
+                <div class="auth-quote">
+                    “الفرق بين الطالب العادي والمتفوق؟<br />
+                    <strong>إنه بيكمل.</strong>”
+                </div>
+            </div>
+
+            <!-- Right: Login Card -->
+            <section class="auth-card">
+                <div class="auth-card-head">
+                    <span class="auth-icon">↗</span>
+                    <span>حساب الطالب</span>
+                </div>
+
+                <h2>تسجيل الدخول</h2>
+                <p>أدخل رقم الهاتف وكلمة السر للمتابعة.</p>
+
+                <!-- Login Form -->
+                <form data-login-form novalidate>
+                    <!-- Phone -->
+                    <label>
+                        رقم الهاتف
+                        <input type="tel" name="phone" id="loginPhone" placeholder="01xxxxxxxxx" inputmode="numeric" maxlength="11" required />
+                        <small class="field-hint" data-hint-for="loginPhone">رقم مصري صحيح: 01 ثم 0 أو 1 أو 2 أو 5 ثم 8 أرقام</small>
+                    </label>
+
+                    <!-- OTP code (given by the teacher after approval) -->
+                    <label>
+                        كود الدخول (6 أرقام)
+                        <input type="text" name="otp" id="loginOtp" placeholder="••••••" inputmode="numeric" maxlength="6" required />
+                        <small class="field-hint">الكود بتاخده من المستر بعد قبول طلبك</small>
+                    </label>
+
+                    <!-- Submit Button -->
+                    <button class="button button-primary full-button" type="submit">
+                        تسجيل الدخول <span>←</span>
+                    </button>
+
+                    <!-- Status Message (for feedback) -->
+                    <div class="form-message" role="status"></div>
+                </form>
+
+                <!-- Switch to Register -->
+                <p class="switch-auth">
+                    ليس لديك حساب؟
+                    <a href="register.html">إنشاء حساب جديد</a>
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - أحمد ثابت</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================================
+           ROOT VARIABLES — لوحة الألوان الجديدة
+           كحلي داكن #04122D | كحلي عميق #031011 | كحلي متوسط #172541
+           ذهبي #EBA45E | ذهبي فاتح #F3C27A
+           أبيض/كريمي #F3E6D2 | بني #885635 | بني داكن #564535
+           ============================================================ */
+        :root {
+            --ink: #04122D;
+            --ink-deep: #031011;
+            --navy-mid: #172541;
+            --muted: #564535;
+            --cream: #F3E6D2;
+            --paper: #FBF5EA;
+            --lime: #EBA45E;
+            --aqua: #F3C27A;
+            --coral: #885635;
+            --purple: #172541;
+            --line: #E3D2B8;
+            --shadow: 0 18px 45px rgba(4, 18, 45, 0.14);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --font: 'Cairo', sans-serif;
+            --font-display: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--cream);
+            min-height: 100vh;
+            padding: 20px;
+            direction: rtl;
+        }
+
+        /* ============================================================
+           CONTAINER
+           ============================================================ */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--paper);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 40px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ============================================================
+           HEADER
+           ============================================================ */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--line);
+        }
+
+        .header h1 {
+            font-size: 26px;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: var(--font-display);
+            font-weight: 700;
+        }
+
+        .header h1 .icon {
+            font-size: 28px;
+        }
+
+        .header .badge {
+            background: var(--ink);
+            color: var(--lime);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            font-family: var(--font-display);
+        }
+
+        /* ============================================================
+           LOGIN SECTION
+           ============================================================ */
+        .login-section {
+            max-width: 420px;
+            margin: 0 auto 30px;
+            padding: 30px;
+            background: var(--cream);
+            border-radius: var(--radius);
+            border: 1px solid var(--line);
+        }
+
+        .login-section label {
+            display: block;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .login-section input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--line);
+            border-radius: var(--radius-sm);
+            font-size: 16px;
+            transition: var(--transition);
+            background: white;
+            color: var(--ink);
+            font-family: var(--font);
+        }
+
+        .login-section input:focus {
+            outline: none;
+            border-color: var(--ink);
+            box-shadow: 0 0 0 4px rgba(4, 18, 45, 0.08);
+        }
+
+        .login-section .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: var(--ink);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+            font-family: var(--font-display);
+        }
+
+        .login-section .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .error-message {
+            color: #c0392b;
+            font-size: 13px;
+            margin-top: 12px;
+            padding: 10px 14px;
+            background: #fde8e8;
+            border-radius: var(--radius-sm);
+            display: none;
+            border-right: 3px solid #c0392b;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* ============================================================
+           ADMIN PANEL
+           ============================================================ */
+        #adminPanel {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        #adminPanel.show {
+            display: block;
+        }
+
+        /* ============================================================
+           TABS
+           ============================================================ */
+        .tabs {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 30px;
+            background: var(--cream);
+            padding: 6px;
+            border-radius: var(--radius-sm);
+            flex-wrap: wrap;
+        }
+
+        .tabs button {
+            padding: 12px 24px;
+            border: none;
+            background: transparent;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--muted);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font);
+        }
+
+        .tabs button:hover {
+            color: var(--ink);
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        .tabs button.active {
+            background: white;
+            color: var(--ink);
+            box-shadow: 0 2px 8px rgba(4, 18, 45, 0.08);
+        }
+
+        .tabs button .badge-count {
+            background: var(--line);
+            color: var(--muted);
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            font-family: var(--font-display);
+        }
+
+        .tabs button.active .badge-count {
+            background: var(--ink);
+            color: var(--lime);
+        }
+
+        /* ============================================================
+           TAB CONTENT
+           ============================================================ */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tab-header h2 {
+            font-size: 20px;
+            color: var(--ink);
+            font-weight: 700;
+        }
+
+        .tab-header .subtitle {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* ============================================================
+           CARDS
+           ============================================================ */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 20px;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-3px);
+        }
+
+        .card .card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .card .card-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .card .card-body {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .card .card-body .detail {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 4px 0;
+        }
+
+        .card .card-body .detail .label {
+            color: var(--muted);
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .card .card-image {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            margin-bottom: 12px;
+        }
+
+        /* ============================================================
+           STATUS BADGES
+           (تُركت بألوان دلالية خضراء/حمراء/صفراء لأنها تعبّر عن حالة،
+            وليست جزءاً من الهوية البصرية للموقع)
+           ============================================================ */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: capitalize;
+            font-family: var(--font-display);
+        }
+
+        .status-badge.pending {
+            background: #fef7e0;
+            color: #b7950b;
+        }
+
+        .status-badge.approved {
+            background: #e8f8f0;
+            color: #1a7a4a;
+        }
+
+        .status-badge.rejected {
+            background: #fde8e8;
+            color: #c0392b;
+        }
+
+        .status-badge .otp-code {
+            background: var(--ink);
+            color: var(--lime);
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-family: var(--font-display);
+            font-size: 14px;
+            margin-right: 6px;
+        }
+
+        /* ============================================================
+           BUTTONS
+           ============================================================ */
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: var(--font);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-success {
+            background: #1a7a4a;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #14633b;
+        }
+
+        .btn-danger {
+            background: #c0392b;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #a93226;
+        }
+
+        .btn-primary {
+            background: var(--ink);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--navy-mid);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--line);
+            color: var(--muted);
+        }
+
+        .btn-outline:hover {
+            background: var(--cream);
+            border-color: var(--ink);
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 11px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        /* ============================================================
+           FORM
+           ============================================================ */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+
+        .form-group label .required {
+            color: #c0392b;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid var(--line);
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            transition: var(--transition);
+            background: white;
+            color: var(--ink);
+            font-family: var(--font);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--ink);
+            box-shadow: 0 0 0 4px rgba(4, 18, 45, 0.08);
+        }
+
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .form-group input[type="file"] {
+            padding: 10px;
+            border: 2px dashed var(--line);
+            background: var(--cream);
+            cursor: pointer;
+        }
+
+        .form-group input[type="file"]:hover {
+            border-color: var(--ink);
+            background: #EADFC9;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .form-actions .btn {
+            padding: 12px 30px;
+            font-size: 15px;
+        }
+
+        /* ============================================================
+           EMPTY STATE
+           ============================================================ */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--muted);
+        }
+
+        .empty-state .icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .empty-state h3 {
+            color: var(--ink);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        /* ============================================================
+           TOAST / NOTIFICATION
+           (حدود جانبية دلالية خضراء/حمراء/زرقاء للنجاح/الخطأ/المعلومة)
+           ============================================================ */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999;
+            width: 100%;
+            max-width: 480px;
+            padding: 0 20px;
+            pointer-events: none;
+        }
+
+        .toast {
+            background: var(--ink);
+            color: white;
+            padding: 16px 24px;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow);
+            margin-bottom: 10px;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            pointer-events: auto;
+            font-family: var(--font);
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            border-right: 4px solid #1a7a4a;
+        }
+
+        .toast.success .toast-icon {
+            color: #4ecf95;
+        }
+
+        .toast.error {
+            border-right: 4px solid #c0392b;
+        }
+
+        .toast.error .toast-icon {
+            color: #ff8a7a;
+        }
+
+        .toast.info {
+            border-right: 4px solid var(--lime);
+        }
+
+        .toast.info .toast-icon {
+            color: var(--lime);
+        }
+
+        .toast .toast-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .toast .toast-content {
+            flex: 1;
+        }
+
+        .toast .toast-content strong {
+            display: block;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .toast .toast-content small {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .toast .toast-close {
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.5);
+            font-size: 18px;
+            cursor: pointer;
+            padding: 0 4px;
+            transition: var(--transition);
+        }
+
+        .toast .toast-close:hover {
+            color: white;
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 768px) {
+            .container { padding: 20px; }
+            .header { flex-direction: column; text-align: center; gap: 10px; }
+            .header h1 { font-size: 22px; }
+            .tabs { flex-direction: column; }
+            .tabs button { justify-content: center; }
+            .form-row { grid-template-columns: 1fr; }
+            .card-grid { grid-template-columns: 1fr; }
+            .login-section { padding: 20px; }
+            .btn-group { flex-direction: column; }
+            .btn-group .btn { width: 100%; justify-content: center; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 12px; border-radius: var(--radius-sm); }
+            .header h1 { font-size: 18px; }
+        }
+
+        /* ============================================================
+           SCROLLBAR
+           ============================================================ */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--cream); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>
+                <span class="icon">⚡</span>
+                لوحة التحكم
+            </h1>
+            <span class="badge">مدير النظام</span>
+        </div>
+
+        <!-- Login Section -->
+        <div class="login-section" id="loginSection">
+            <label for="adminKey">مفتاح الأدمن</label>
+            <input type="password" id="adminKey" placeholder="أدخل مفتاح الأدمن..." autofocus>
+            <button class="btn-login" id="loginBtn">دخول</button>
+            <div class="error-message" id="errorMessage">مفتاح الأدمن غير صحيح</div>
+        </div>
+
+        <!-- Admin Panel -->
+        <div id="adminPanel">
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="active" onclick="switchTab('students')">
+                    الطلاب
+                    <span class="badge-count" id="studentsCount">0</span>
+                </button>
+                <button onclick="switchTab('courses')">
+                    الكورسات
+                    <span class="badge-count" id="coursesCount">0</span>
+                </button>
+                <button onclick="switchTab('addCourse')">
+                    إضافة كورس
+                </button>
+            </div>
+
+            <!-- Students Tab -->
+            <div class="tab-content active" id="studentsTab">
+                <div class="tab-header">
+                    <h2>إدارة الطلاب</h2>
+                    <span class="subtitle">قبول / رفض / حذف الطلاب</span>
+                </div>
+                <div id="studentsList"></div>
+            </div>
+
+            <!-- Courses Tab -->
+            <div class="tab-content" id="coursesTab">
+                <div class="tab-header">
+                    <h2>إدارة الكورسات</h2>
+                    <span class="subtitle">عرض وحذف الكورسات</span>
+                </div>
+                <div id="coursesList"></div>
+            </div>
+
+            <!-- Add Course Tab -->
+            <div class="tab-content" id="addCourseTab">
+                <div class="tab-header">
+                    <h2>إضافة كورس جديد</h2>
+                    <span class="subtitle">أدخل بيانات الكورس</span>
+                </div>
+                <form id="courseForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>عنوان الكورس <span class="required">*</span></label>
+                            <input type="text" id="courseTitle" placeholder="مثال: شرح منهج اللغة الإنجليزية" required>
+                        </div>
+                        <div class="form-group">
+                            <label>الصف الدراسي <span class="required">*</span></label>
+                            <select id="courseGrade" required>
+                                <option value="">اختر الصف</option>
+                                <option value="الصف الأول الثانوي">الصف الأول الثانوي</option>
+                                <option value="الصف الثاني الثانوي">الصف الثاني الثانوي</option>
+                                <option value="الصف الثالث الثانوي">الصف الثالث الثانوي</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>الوصف</label>
+                        <textarea id="courseDescription" placeholder="وصف مختصر للكورس..."></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>السعر</label>
+                            <select id="coursePriceType" onchange="togglePriceInput()">
+                                <option value="custom">مخصص (أكتب السعر)</option>
+                                <option value="free">مجاني</option>
+                            </select>
+                            <input type="text" id="coursePrice" placeholder="أدخل السعر..." style="margin-top:8px;" value="350 جنيه">
+                        </div>
+                        <div class="form-group">
+                            <label>العلامة (Tag)</label>
+                            <input type="text" id="courseTag" placeholder="مثال: مميز">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>صورة الكورس</label>
+                        <input type="file" id="courseImage" accept="image/*">
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">إضافة الكورس</button>
+                        <button type="reset" class="btn btn-outline">إعادة تعيين</button>
+                    </div>
+                    <div id="addCourseResult" class="mt-20"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // ============================================================
+        // Toast System
+        // ============================================================
+        function showToast(message, type = 'info', title = '') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icons = {
+                success: '✓',
+                error: '✕',
+                info: 'ℹ'
+            };
+
+            toast.innerHTML = `
+                <span class="toast-icon">${icons[type] || 'ℹ'}</span>
+                <div class="toast-content">
+                    ${title ? `<strong>${title}</strong>` : ''}
+                    <small>${message}</small>
+                </div>
+                <button class="toast-close" onclick="this.parentElement.remove()">✕</button>
+            `;
+
+            container.appendChild(toast);
+            
+            // Trigger animation
+            requestAnimationFrame(() => {
+                toast.classList.add('show');
+            });
+
+            // Auto remove after 4 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 400);
+            }, 4000);
+        }
+
+        // ============================================================
+        // Login
+        // ============================================================
+        let adminKey = '';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginBtn = document.getElementById('loginBtn');
+            const adminKeyInput = document.getElementById('adminKey');
+            const errorEl = document.getElementById('errorMessage');
+
+            function handleLogin() {
+                adminKey = adminKeyInput.value.trim();
+
+                if (!adminKey) {
+                    errorEl.textContent = 'من فضلك أدخل مفتاح الأدمن';
+                    errorEl.classList.add('show');
+                    return;
+                }
+
+                if (adminKey === 'thabet-admin-2026') {
+                    errorEl.classList.remove('show');
+                    document.getElementById('loginSection').style.display = 'none';
+                    document.getElementById('adminPanel').classList.add('show');
+                    showToast('تم الدخول بنجاح', 'success', 'مرحباً بك');
+                    loadStudents();
+                    loadCourses();
+                } else {
+                    errorEl.textContent = 'مفتاح الأدمن غير صحيح';
+                    errorEl.classList.add('show');
+                    showToast('مفتاح الأدمن غير صحيح', 'error', 'خطأ');
+                }
+            }
+
+            loginBtn.addEventListener('click', handleLogin);
+            adminKeyInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') handleLogin();
+            });
+        });
+
+        // ============================================================
+        // Price Toggle
+        // ============================================================
+        function togglePriceInput() {
+            const type = document.getElementById('coursePriceType').value;
+            const priceInput = document.getElementById('coursePrice');
+            if (type === 'free') {
+                priceInput.value = 'مجاني';
+                priceInput.disabled = true;
+            } else {
+                priceInput.value = '';
+                priceInput.disabled = false;
+                priceInput.placeholder = 'أدخل السعر...';
+            }
+        }
+
+        // ============================================================
+        // Switch Tabs
+        // ============================================================
+        function switchTab(tab) {
+            document.querySelectorAll('.tabs button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tabs button').forEach(btn => {
+                if (btn.textContent.trim().includes(tab === 'students' ? 'الطلاب' : 
+                                                   tab === 'courses' ? 'الكورسات' : 'إضافة')) {
+                    btn.classList.add('active');
+                }
+            });
+
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.getElementById(tab + 'Tab').classList.add('active');
+        }
+
+        // ============================================================
+        // API Helpers
+        // ============================================================
+        function getHeaders() {
+            return { 'x-admin-key': adminKey };
+        }
+
+        // ============================================================
+        // Load Students
+        // ============================================================
+        async function loadStudents() {
+            try {
+                const res = await fetch('/api/admin/students', { headers: getHeaders() });
+                const data = await res.json();
+
+                if (!data.success) {
+                    document.getElementById('studentsList').innerHTML = `
+                        <div class="empty-state">
+                            <div class="icon">⚠</div>
+                            <h3>فشل تحميل الطلاب</h3>
+                            <p>تأكد من مفتاح الأدمن</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const students = data.students || [];
+                document.getElementById('studentsCount').textContent = students.length;
+
+                if (students.length === 0) {
+                    document.getElementById('studentsList').innerHTML = `
+                        <div class="empty-state">
+                            <div class="icon">👤</div>
+                            <h3>لا يوجد طلاب</h3>
+                            <p>لم يسجل أي طالب بعد</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                document.getElementById('studentsList').innerHTML = `
+                    <div class="card-grid">
+                        ${students.map(s => `
+                            <div class="card">
+                                <div class="card-header">
+                                    <span class="card-title">${s.firstName || ''} ${s.lastName || ''}</span>
+                                    <span class="status-badge ${s.status || 'pending'}">
+                                        ${s.status === 'pending' ? 'قيد المراجعة' :
+                                          s.status === 'approved' ? 'مقبول' :
+                                          s.status === 'rejected' ? 'مرفوض' : s.status || 'غير معروف'}
+                                    </span>
+                                </div>
+                                <div class="card-body">
+                                    <div class="detail">
+                                        <span class="label">الهاتف:</span>
+                                        <span>${s.phone || 'غير موجود'}</span>
+                                    </div>
+                                    <div class="detail">
+                                        <span class="label">الصف:</span>
+                                        <span>${s.grade || 'غير محدد'}</span>
+                                    </div>
+                                    ${s.governorate ? `
+                                        <div class="detail">
+                                            <span class="label">المحافظة:</span>
+                                            <span>${s.governorate}</span>
+                                        </div>
+                                    ` : ''}
+                                    ${s.school ? `
+                                        <div class="detail">
+                                            <span class="label">المدرسة:</span>
+                                            <span>${s.school}</span>
+                                        </div>
+                                    ` : ''}
+                                    ${s.otp ? `
+                                        <div class="detail" style="margin-top:8px;background:var(--cream);padding:8px 12px;border-radius:6px;">
+                                            <span class="label">كود الدخول:</span>
+                                            <span class="status-badge approved" style="font-size:16px;font-family:var(--font-display);">${s.otp}</span>
+                                        </div>
+                                    ` : ''}
+                                    ${s.createdAt ? `
+                                        <div class="detail" style="font-size:12px;color:var(--muted);margin-top:8px;">
+                                            <span>${new Date(s.createdAt).toLocaleDateString('ar-EG')}</span>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                                <div class="btn-group">
+                                    ${s.status === 'pending' ? `
+                                        <button class="btn btn-success btn-sm" onclick="approveStudent('${s.id}')">قبول</button>
+                                        <button class="btn btn-danger btn-sm" onclick="rejectStudent('${s.id}')">رفض</button>
+                                    ` : ''}
+                                    <button class="btn btn-danger btn-sm" onclick="deleteStudent('${s.id}')">حذف</button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            } catch (e) {
+                console.error(e);
+                showToast('حدث خطأ في تحميل الطلاب', 'error');
+            }
+        }
+
+        // ============================================================
+        // Approve Student
+        // ============================================================
+        async function approveStudent(id) {
+            if (!confirm('هل أنت متأكد من قبول هذا الطالب؟')) return;
+            try {
+                const res = await fetch(`/api/admin/approve/${id}`, {
+                    method: 'POST',
+                    headers: getHeaders()
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast(`تم قبول الطالب - كود الدخول: ${data.otp}`, 'success', 'تم القبول');
+                    loadStudents();
+                } else {
+                    showToast(data.message, 'error');
+                }
+            } catch (e) {
+                showToast('حدث خطأ أثناء قبول الطالب', 'error');
+            }
+        }
+
+        // ============================================================
+        // Reject Student
+        // ============================================================
+        async function rejectStudent(id) {
+            if (!confirm('هل أنت متأكد من رفض هذا الطالب؟')) return;
+            try {
+                await fetch(`/api/admin/reject/${id}`, {
+                    method: 'POST',
+                    headers: getHeaders()
+                });
+                showToast('تم رفض الطالب', 'info', 'تم الرفض');
+                loadStudents();
+            } catch (e) {
+                showToast('حدث خطأ', 'error');
+            }
+        }
+
+        // ============================================================
+        // Delete Student
+        // ============================================================
+        async function deleteStudent(id) {
+            if (!confirm('هل أنت متأكد من حذف هذا الطالب نهائياً؟')) return;
+            try {
+                await fetch(`/api/admin/students/${id}`, {
+                    method: 'DELETE',
+                    headers: getHeaders()
+                });
+                showToast('تم حذف الطالب', 'info', 'تم الحذف');
+                loadStudents();
+            } catch (e) {
+                showToast('حدث خطأ', 'error');
+            }
+        }
+
+        // ============================================================
+        // Load Courses
+        // ============================================================
+        async function loadCourses() {
+            try {
+                const res = await fetch('/api/courses');
+                const data = await res.json();
+
+                if (!data.success) {
+                    document.getElementById('coursesList').innerHTML = `
+                        <div class="empty-state">
+                            <div class="icon">⚠</div>
+                            <h3>فشل تحميل الكورسات</h3>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const courses = data.courses || [];
+                document.getElementById('coursesCount').textContent = courses.length;
+
+                if (courses.length === 0) {
+                    document.getElementById('coursesList').innerHTML = `
+                        <div class="empty-state">
+                            <div class="icon">📚</div>
+                            <h3>لا يوجد كورسات</h3>
+                            <p>أضف كورس جديد من علامة التبويب المناسبة</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                document.getElementById('coursesList').innerHTML = `
+                    <div class="card-grid">
+                        ${courses.map(c => `
+                            <div class="card">
+                                ${c.image && !c.image.includes('placeholder') ? 
+                                    `<img src="${c.image}" alt="${c.title}" class="card-image">` : ''}
+                                <div class="card-header">
+                                    <span class="card-title">${c.title || 'بدون عنوان'}</span>
+                                    <span class="status-badge approved">${c.grade || 'غير محدد'}</span>
+                                </div>
+                                <div class="card-body">
+                                    ${c.description ? `<p>${c.description}</p>` : ''}
+                                    <div class="detail">
+                                        <span class="label">السعر:</span>
+                                        <span>${c.price || 'مجاني'}</span>
+                                    </div>
+                                    ${c.tag ? `
+                                        <div class="detail">
+                                            <span class="label">العلامة:</span>
+                                            <span style="background:var(--cream);padding:2px 12px;border-radius:12px;">${c.tag}</span>
+                                        </div>
+                                    ` : ''}
+                                    ${c.lectures && c.lectures.length > 0 ? `
+                                        <div class="detail" style="margin-top:8px;">
+                                            <span class="label">المحاضرات:</span>
+                                            <span>${c.lectures.length} محاضرة</span>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn btn-danger btn-sm" onclick="deleteCourse('${c.id}')">حذف الكورس</button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            } catch (e) {
+                console.error(e);
+                showToast('حدث خطأ في تحميل الكورسات', 'error');
+            }
+        }
+
+        // ============================================================
+        // Delete Course
+        // ============================================================
+        async function deleteCourse(id) {
+            if (!confirm('هل أنت متأكد من حذف هذا الكورس نهائياً؟')) return;
+            try {
+                await fetch(`/api/admin/courses/${id}`, {
+                    method: 'DELETE',
+                    headers: getHeaders()
+                });
+                showToast('تم حذف الكورس', 'info', 'تم الحذف');
+                loadCourses();
+            } catch (e) {
+                showToast('حدث خطأ', 'error');
+            }
+        }
+
+        // ============================================================
+        // Add Course Form
+        // ============================================================
+        document.getElementById('courseForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const formData = new FormData();
+            formData.append('title', document.getElementById('courseTitle').value.trim());
+            formData.append('description', document.getElementById('courseDescription').value.trim());
+            formData.append('grade', document.getElementById('courseGrade').value);
+            
+            const priceType = document.getElementById('coursePriceType').value;
+            const price = priceType === 'free' ? 'مجاني' : document.getElementById('coursePrice').value.trim();
+            formData.append('price', price || 'مجاني');
+            
+            formData.append('tag', document.getElementById('courseTag').value.trim());
+
+            const imageFile = document.getElementById('courseImage').files[0];
+            if (imageFile) formData.append('image', imageFile);
+
+            try {
+                const res = await fetch('/api/admin/courses', {
+                    method: 'POST',
+                    headers: { 'x-admin-key': adminKey },
+                    body: formData
+                });
+                const data = await res.json();
+                const resultEl = document.getElementById('addCourseResult');
+                if (data.success) {
+                    resultEl.innerHTML = '<p style="color:#1a7a4a;font-weight:700;">تم إضافة الكورس بنجاح</p>';
+                    showToast('تم إضافة الكورس بنجاح', 'success', 'تم الإضافة');
+                    loadCourses();
+                    document.getElementById('courseForm').reset();
+                    document.getElementById('coursePrice').disabled = false;
+                } else {
+                    resultEl.innerHTML = `<p style="color:#c0392b;font-weight:700;">${data.message}</p>`;
+                    showToast(data.message, 'error');
+                }
+            } catch (e) {
+                document.getElementById('addCourseResult').innerHTML = '<p style="color:#c0392b;font-weight:700;">حدث خطأ أثناء الإضافة</p>';
+                showToast('حدث خطأ أثناء الإضافة', 'error');
+            }
+        });
+    </script>
+</body>
+</html>
