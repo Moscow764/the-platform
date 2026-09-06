@@ -3,23 +3,20 @@ const path = require('path');
 const app = express();
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public'))); // أو المجلد الذي يحتوي ملفات HTML/CSS
 
-// تأكد من استخدام path.join عند قراءة أي ملفات JSON محلية
-// مثال: fs.readFileSync(path.join(__dirname, 'students.json'))
+// خدمة الملفات الساكنة (HTML / CSS / JS) من المجلد الرئيسي
+app.use(express.static(__dirname));
 
-// التصدير الخاص بـ Vercel Serverless
-module.exports = app;
+// مسار الصفحة الرئيسية
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 // التشغيل المحلي فقط
 if (process.env.NODE_ENV !== 'production') {
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 }
-// إذا كانت ملفات الـ HTML والـ CSS في مجلد المشروع الرئيسي مباشرة:
-app.use(express.static(__dirname));
 
-// أو إذا كان لديك مسار محدد للصفحة الرئيسية (مثلاً index.html):
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
+// التصدير الخاص بـ Vercel (يجب أن يكون في النهاية تماماً)
+module.exports = app;
