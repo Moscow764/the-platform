@@ -5,10 +5,22 @@ const app = express();
 
 app.use(express.json());
 
-// خدمة الملفات الساكنة من المجلد الرئيسي
+// 1. تقديم ملف styles.css بنوع MIME صريح ومضمون
+app.get('/styles.css', (req, res) => {
+  res.setHeader('Content-Type', 'text/css');
+  res.sendFile(path.join(__dirname, 'styles.css'));
+});
+
+// 2. تقديم ملف script.js بنوع MIME صريح
+app.get('/script.js', (req, res) => {
+  res.setHeader('Content-Type', 'application/javascript');
+  res.sendFile(path.join(__dirname, 'script.js'));
+});
+
+// 3. خدمة بقية الملفات الساكنة
 app.use(express.static(path.join(__dirname)));
 
-// مسارات الـ API لقراءة الكورسات والطلاب
+// 4. مسارات الـ API لقراءة الكورسات والطلاب
 app.get('/api/courses', (req, res) => {
   const filePath = path.join(__dirname, 'courses.json');
   fs.readFile(filePath, 'utf8', (err, data) => {
@@ -27,7 +39,7 @@ app.get('/api/admin/students', (req, res) => {
   });
 });
 
-// مسار الصفحة الرئيسية
+// 5. الصفحة الرئيسية
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
